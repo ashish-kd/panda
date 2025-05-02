@@ -49,7 +49,7 @@ function parseNumericFields(req, res, next) {
     if (req.body.contact) {
       req.body.contact = req.body.contact.replace(/\D/g, '');
     }
-    
+
   }
   next();
 }
@@ -88,6 +88,10 @@ app.post('/api/listing', parseNumericFields, validateBody(ListingSchema), async 
   }
 })
 
-app.listen(4000, () => {
-  console.log('Example app listening on port 4000!')
-})
+// For local development
+// app.listen(4000, () => {
+//   console.log('Example app listening on port 4000!')
+// })
+
+// For vercel deployment
+module.exports = app
