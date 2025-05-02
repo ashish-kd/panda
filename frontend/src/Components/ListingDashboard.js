@@ -7,12 +7,14 @@ export default function ListingDashboard() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
+    const API = process.env.REACT_APP_API_URL;
+    
     // Fetch the current listings from API
     const fetchListings = async () => {
         setLoading(true)
         setError(null)
         try {
-            const res = await fetch('/api/listing')
+            const res = await fetch(`${API}/api/listing`)
             if (!res.ok) throw new Error(await res.text())
             const data = await res.json()
             setListings(data)
@@ -29,7 +31,7 @@ export default function ListingDashboard() {
 
     const handleAddListing = async (data) => {
         try {
-            const res = await fetch('/api/listing', {
+            const res = await fetch(`${API}/api/listing`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
