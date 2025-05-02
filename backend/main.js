@@ -1,16 +1,16 @@
 const { PrismaClient } = require('./generated/prisma')
 const express = require('express')
 const { ListingSchema, ListingArray } = require('./schemas')
-// const cors = require('cors')
+const cors = require('cors')
 
 const app = express()
 
 // Add middleware with more specific CORS options
-// app.use(cors({
-//   origin: '*', // Allow all origins during development
-//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//   allowedHeaders: ['Content-Type', 'Authorization']
-// }))
+app.use(cors({
+  origin: 'https://panda-flax.vercel.app/',  // or '*' to allow all origins
+  methods: ['GET','POST'],
+  allowedHeaders: ['Content-Type']
+}))
 app.use(express.json()) // Parse JSON request bodies
 
 const prisma = new PrismaClient()
