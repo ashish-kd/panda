@@ -1,0 +1,26 @@
+# Node modules
+/frontend/node_modules/
+/backend/node_modules/
+
+/frontend/.env
+/backend/.env
+/.env 
+
+# Build outputs
+/frontend/build/
+/frontend/dist/
+/backend/dist/
+/backend/build/
+
+# Debug logs
+npm-debug.log*
+
+.idea/
+.vscode/
+
+# Production
+/build
+
+# Prisma
+/backend/prisma/migrations/
+/backend/generated/
