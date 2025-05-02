@@ -7,7 +7,7 @@ const app = express()
 
 // Add middleware with more specific CORS options
 app.use(cors({
-  origin: 'https://panda-flax.vercel.app/',  // or '*' to allow all origins
+  origin: 'https://panda-flax.vercel.app',  // or '*' to allow all origins
   methods: ['GET','POST'],
   allowedHeaders: ['Content-Type']
 }))

@@ -2,6 +2,10 @@
 
 A modern web application for listing and browsing housing rentals, built with React, Express, and Prisma.
 
+Deployed the application on Vercel and MySQL via Aiven
+
+URL for frontend to view the application: https://panda-flax.vercel.app/
+
 ## Overview
 
 Panda is a full-stack application that allows property owners to list rental properties and helps prospective tenants browse available listings. The application features a clean, responsive UI and a robust backend API.
