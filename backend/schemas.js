@@ -10,6 +10,7 @@ const ListingSchema = z.object({
 })
 
 const ListingOut = z.object({
+    id:          z.number().int(),
     title:       z.string(),
     description: z.string(),
     rent:        z.number().int(),

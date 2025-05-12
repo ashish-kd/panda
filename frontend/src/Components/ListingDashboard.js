@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 import UploadListing from './UploadListing'
 
 export default function ListingDashboard() {
-    const [view, setView] = useState('list')            
-    const [listings, setListings] = useState([])        
+    const [view, setView] = useState('list')
+    const [listings, setListings] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
     const API = process.env.REACT_APP_API_URL;
-    
+
     // Fetch the current listings from API
     const fetchListings = async () => {
         setLoading(true)
@@ -47,9 +47,22 @@ export default function ListingDashboard() {
         const cleaned = phoneNumberString.replace(/\D/g, '');
 
         if (cleaned.length !== 10) {
-            return phoneNumberString; 
+            return phoneNumberString;
         }
         return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6)}`;
+    }
+
+    // DELETE handler
+    const handleDelete = async (id) => {
+        if (!window.confirm('Are you sure you want to delete this listing?')) return
+        try {
+            const res = await fetch(`${API}/api/listing/${id}`, { method: 'DELETE' })
+            if (!res.ok) throw new Error(await res.text())
+            // remove from UI immediately
+            setListings(prev => prev.filter(l => l.id !== id))
+        } catch (err) {
+            alert('Delete failed: ' + err.message)
+        }
     }
 
     return (
@@ -59,8 +72,8 @@ export default function ListingDashboard() {
                 <button
                     onClick={() => setView('list')}
                     className={`flex-1 py-2 rounded-lg font-medium ${view === 'list'
-                            ? 'bg-blue-600 text-white'
-                            : 'bg-gray-200 text-gray-700'
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-200 text-gray-700'
                         }`}
                 >
                     View Listings
@@ -68,8 +81,8 @@ export default function ListingDashboard() {
                 <button
                     onClick={() => setView('add')}
                     className={`flex-1 py-2 rounded-lg font-medium ${view === 'add'
-                            ? 'bg-blue-600 text-white'
-                            : 'bg-gray-200 text-gray-700'
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-200 text-gray-700'
                         }`}
                 >
                     Add a Listing
@@ -93,7 +106,15 @@ export default function ListingDashboard() {
                                 key={i}
                                 className="border rounded-lg p-4 hover:shadow-md transition"
                             >
-                                <h3 className="text-xl font-semibold">{l.title}</h3>
+                                <div className="flex justify-between items-start">
+                                    <h3 className="text-xl font-semibold">{l.title}</h3>
+                                    <button
+                                        onClick={() => handleDelete(l.id)}
+                                        className="ml-4 bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                                 <p className="text-gray-600">{l.description}</p>
                                 <div className="mt-2 text-sm text-gray-700">
                                     <span className="font-medium">Rent:</span> ${l.rent}/mo
